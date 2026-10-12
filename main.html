@@ -1,13 +1,50 @@
+
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promises and Chains</title>
+</head>
+<body>
+    <form id="myForm">
+        <input type="number" id="age" placeholder="Enter your age" required>
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <button type="submit" id="btn">Submit</button>
+    </form>
 
-<html>
-  <head>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
+    <script>
+        const form = document.getElementById("myForm");
+        const ageInput = document.getElementById("age");
+        const nameInput = document.getElementById("name");
 
-  <body>
-    <!-- write the body here -->
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
 
-    <script type="text/javascript" src="./script.js"></script>
-  </body>
+            const age = ageInput.value.trim();
+            const name = nameInput.value.trim();
+
+            if (age === "" || name === "") {
+                alert("Please enter valid details.");
+                return;
+            }
+
+            new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (Number(age) > 18) {
+                        resolve(`Welcome, ${name}. You can vote.`);
+                    } else {
+                        reject(`Oh sorry ${name}. You aren't old enough.`);
+                    }
+                }, 4000);
+            })
+            .then(message => {
+                alert(message);
+            })
+            .catch(message => {
+                alert(message);
+            });
+        });
+    </script>
+</body>
 </html>
